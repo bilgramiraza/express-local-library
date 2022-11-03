@@ -2,4 +2,27 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Welcome to #[em Local Library], An Library Inventory Site built using #[em Node] and #[em Express] 
+
+  h2 Dynamic Content 
+  if error 
+    p='Error Getting Dynamic Content. Error: '+error
+  else 
+    p The Local Library Stats 
+
+    table.table.table-striped.table-bordered.w-50 
+      tr
+        th Books
+        td= data.book_count
+      tr
+        th Total Copies
+        td= data.book_instance_count
+      tr
+        th Copies In Stock
+        td= data.book_instance_available_count
+      tr
+        th Authors
+        td= data.author_count
+      tr
+        th Genres
+        td= data.genre_count
