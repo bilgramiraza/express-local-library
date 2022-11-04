@@ -3,18 +3,27 @@ extends layout
 block content 
   h1=title 
 
-  ul 
+  table.table.table-striped.table-bordered
+    thead
+      th Book Title 
+      th Publisher 
+      th Status 
+      th Availability
     each bookinstance in bookinstance_list
-      li
-        a(href=bookinstance.url) #{bookinstance.book.title} - #{bookinstance.imprint}  
+      tr 
+        td 
+          a(href=bookinstance.url) #{bookinstance.book.title}
+        td #{bookinstance.imprint}
         if bookinstance.status == 'Available'
-          span.text-success #{bookinstance.status}
+          td.text-success #{bookinstance.status}
         else if bookinstance.status == 'Maintenance'
-          span.text-danger #{bookinstance.status}
+          td.text-danger #{bookinstance.status}
         else 
-          span.text-warning #{bookinstance.status}
+          td.text-warning #{bookinstance.status}
         if bookinstance.status != 'Available'
-          span  #[em Due: #{bookinstance.due_back}]
-  
+          td #{bookinstance.due_back}
+        else 
+          td Now
     else
-      li No Book Copies Available at Local Library
+      tr 
+        td.text-danger(colspan="4") No Book Copies Available at Local Library
