@@ -3,7 +3,7 @@ extends layout
 block content 
   h1=title 
 
-  table.table.table-striped.table-bordered.table-hover
+  table.table.table-striped.table-bordered.table-hover.w-50
     thead 
       th Name 
       th Date Of Birth 
@@ -13,8 +13,8 @@ block content
         tr 
           td 
             a(href=author.url) #{author.name} 
-          td #{author.date_of_birth}
-          td #{author.date_of_death}
+          td #{author.date_of_birth_formatted}
+          td #{author.date_of_death_formatted}
       else 
         tr.table-danger 
           td(colspan="3") No Authors Available
