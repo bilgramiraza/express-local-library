@@ -21,7 +21,7 @@ block content
         else 
           td.text-warning #{bookinstance.status}
         if bookinstance.status != 'Available'
-          td #{bookinstance.due_back}
+          td #{bookinstance.due_back_formatted}
         else 
           td Now
     else
