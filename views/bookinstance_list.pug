@@ -3,27 +3,28 @@ extends layout
 block content 
   h1=title 
 
-  table.table.table-striped.table-bordered
+  table.table.table-striped.table-bordered.table-hover
     thead
       th Book Title 
       th Publisher 
       th Status 
       th Availability
-    each bookinstance in bookinstance_list
-      tr 
-        td 
-          a(href=bookinstance.url) #{bookinstance.book.title}
-        td #{bookinstance.imprint}
-        if bookinstance.status == 'Available'
-          td.text-success #{bookinstance.status}
-        else if bookinstance.status == 'Maintenance'
-          td.text-danger #{bookinstance.status}
-        else 
-          td.text-warning #{bookinstance.status}
-        if bookinstance.status != 'Available'
-          td #{bookinstance.due_back_formatted}
-        else 
-          td Now
-    else
-      tr 
-        td.text-danger(colspan="4") No Book Copies Available at Local Library
+    tbody 
+      each bookinstance in bookinstance_list
+        tr 
+          td 
+            a(href=bookinstance.url) #{bookinstance.book.title}
+          td #{bookinstance.imprint}
+          if bookinstance.status == 'Available'
+            td.text-success #{bookinstance.status}
+          else if bookinstance.status == 'Maintenance'
+            td.text-danger #{bookinstance.status}
+          else 
+            td.text-warning #{bookinstance.status}
+          if bookinstance.status != 'Available'
+            td #{bookinstance.due_back_formatted}
+          else 
+            td Now
+      else
+        tr.table-danger 
+          td(colspan="4") No Book Copies Available at Local Library
