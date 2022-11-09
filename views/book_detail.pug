@@ -3,30 +3,47 @@ extends layout
 block content 
   h1=title 
 
-  p #[strong Author:]
-    a(href=book.author.url) #{book.author.name}
-  p #[strong Summary:] #{book.summary}
-  p #[strong ISBN:] #{book.isbn}
-  p #[strong Genre:] 
-    each val, index in book.genre 
-      a(href=val.url) #{val.name} 
-      if index < book.genre.length -1
-        |,
-  div
-    h4 Copies 
+  hr.w-75.ml-0
 
-    each val in book_instances 
-      hr
-      if val.status=='Available'
-        p.text-success #{val.status}
-      else if val.status=='Maintenance'
-        p.text-danger #{val.status}
-      else 
-        p.text-warning #{val.status}
-      p #[strong Imprint:] #{val.imprint} 
-      if val.status != 'Available'
-        p #[strong Due Back:] #{val.due_back}
-      p #[strong Id:] 
-        a(href=val.url) #{val._id} 
-    else 
-      p There are no copies of this book in the library 
+  div
+    div.row
+      div.col-8
+        h3 #[strong Summary] 
+        p #{book.summary}
+      div.col-2.border.border-bottom-0.border-right-0.pt-3
+        p #[strong Author:]
+          a(href=book.author.url) #{book.author.name}
+        p #[strong ISBN:] #{book.isbn}
+        p #[strong Genre:] 
+          each val, index in book.genre 
+            a(href=val.url) #{val.name} 
+            if index < book.genre.length -1
+              |,
+  div
+    h3 #[strong Copies]
+    
+    table.table.table-striped.table-bordered.table-hover.w-75
+      thead.thead-dark 
+        th Imprint 
+        th Id 
+        th Status 
+        th Availability 
+      tbody 
+        each val in book_instances 
+          tr 
+            td #{val.imprint} 
+            td 
+              a(href=val.url) #{val._id} 
+            if val.status=='Available'
+              td.text-success #{val.status}
+            else if val.status=='Maintenance'
+              td.text-danger #{val.status}
+            else 
+              td.text-warning #{val.status}
+            if val.status != 'Available'
+              td #{val.due_back}
+            else 
+              td #[strong Now] 
+        else 
+          tr.table-warning 
+            td There are no copies of this book in the library 
