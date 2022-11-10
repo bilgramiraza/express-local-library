@@ -1,10 +1,12 @@
 extends layout 
 
 block content 
-  h1 ID: #{bookinstance._id}
+  h1.mt-2 #{bookinstance.book.title}
 
-  p #[strong Title: ]
-    a(href=bookinstance.book.url) #{bookinstance.book.title}
+  hr.w-75.ml-0
+
+  p #[strong Book Identification Code: ] #{bookinstance._id}
+
   p #[strong Imprint: ] #{bookinstance.imprint}
 
   p #[strong Status: ]
@@ -17,3 +19,6 @@ block content
   
   if bookinstance.status!='Available'
     p #[strong Due Back:] #{bookinstance.due_back}
+
+  p 
+    a(href=bookinstance.book.url) #[strong Book Summary]
