@@ -41,7 +41,7 @@ block content
             else 
               td.text-warning #{val.status}
             if val.status != 'Available'
-              td #{val.due_back}
+              td #{val.due_back_formatted}
             else 
               td #[strong Now] 
         else 
