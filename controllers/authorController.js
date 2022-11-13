@@ -39,7 +39,11 @@ exports.author_detail = (req, res, next) => {
   );
 };
 
-exports.author_create_get = [
+exports.author_create_get = (req, res, next) => {
+  res.render('author_form', { title: 'Add New Author' });
+};
+
+exports.author_create_post = [
   body('first_name')
     .trim()
     .isLength({ min: 1 })
@@ -62,7 +66,7 @@ exports.author_create_get = [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.render('author_form', {
-        title: 'Create Author',
+        title: 'Add New Author',
         author: req.body,
         errors: errors.array(),
       });
@@ -80,10 +84,6 @@ exports.author_create_get = [
     });
   },
 ];
-
-exports.author_create_post = (req, res) => {
-  res.send('NOT IMPLEMENTED: Author Create POST ');
-};
 
 exports.author_delete_get = (req, res) => {
   res.send('NOT IMPLEMENTED: Author Delete GET');
