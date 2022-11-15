@@ -103,7 +103,7 @@ exports.book_create_post = [
   body('author', 'Author must not be empty').trim().isLength({ min: 1 }).escape(),
   body('summary', 'Summary must not be empty').trim().isLength({ min: 1 }).escape(),
   body('isbn', 'ISBN must not be empty').trim().isLength({ min: 1 }).escape(),
-  body('genre').escape(),
+  body('genre.*').escape(),
   (req, res, next) => {
     const errors = validationResult(req);
 
