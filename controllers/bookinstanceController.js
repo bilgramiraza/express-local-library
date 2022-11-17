@@ -45,12 +45,15 @@ exports.bookinstance_create_post = [
   body('status').escape(),
   body('due_back', 'Invalid Date').optional({ checkFalsy: 'true' }).isISO8601().toDate(),
   (req, res, next) => {
+    const errors = validationResult(req);
+
     const bookinstance = new BookInstance({
       book: req.body.book,
       imprint: req.body.imprint,
       status: req.body.status,
       due_back: req.body.due_back,
     });
+
     if (!errors.isEmpty()) {
       Book.find({}, 'title').exec((err, books) => {
         if (err) return next(err);
@@ -64,6 +67,7 @@ exports.bookinstance_create_post = [
       });
       return;
     }
+
     bookinstance.save((err) => {
       if (err) return next(err);
       res.redirect(bookinstance.url);
