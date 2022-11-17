@@ -1,4 +1,6 @@
 const BookInstance = require('../models/bookinstance');
+const Book = require('../models/book');
+const { body, validationResult } = require('express-validator');
 
 exports.bookinstance_list = (req, res, next) => {
   BookInstance.find()
@@ -28,8 +30,14 @@ exports.bookinstance_detail = (req, res, next) => {
     });
 };
 
-exports.bookinstance_create_get = (req, res) => {
-  res.send('NOT IMPLEMENTED: BookInstance Create GET ');
+exports.bookinstance_create_get = (req, res, next) => {
+  Book.find({}, 'title').exec((err, books) => {
+    if (err) return next(err);
+    res.render('bookinstance_form', {
+      title: 'Add A New Copy of a Book',
+      booklist: books,
+    });
+  });
 };
 
 exports.bookinstance_create_post = (req, res) => {
