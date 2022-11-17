@@ -3,16 +3,17 @@ extends layout
 block content 
   h1.mt-3 #{title} 
 
-  form.mt-3(action='' method='POST')
-    div.form-group.row.text-center
-      label.col-auto.col-form-label-lg(for='name') Genre: 
-      input#name.form-control-lg.col-6(type='text', 
+  form.row.g-3.w-75(action='' method='POST')
+    label.visually-hidden(for='name') 
+    div.input-group.input-group-lg.my-4
+      span.input-group-text Genre 
+      input#name.form-control(type='text', 
         placeholder='Enter New Genre Name Here', 
         name='name', 
         value=(genre===undefined?'':genre.name),
         required='true')
-    div.form-group.row.justify-content-center.w-50
-      button.btn.btn-lg.btn-primary(type='submit') Submit 
+    div.row
+      button.col-1.btn.btn-primary.btn-lg(type='submit') Submit 
 
   if errors 
     ul 

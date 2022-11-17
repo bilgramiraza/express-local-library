@@ -3,17 +3,17 @@ extends layout
 block content 
   h1 #{title}
 
-  form(action='', method='post')
-    div.form-group
-      label(for='title') Title: 
+  form.row.g-3.w-75(action='', method='post')
+    div.col-7
+      label.form-label.fs-3(for='title') Title 
       input#title.form-control(
         type='text', 
         placeholder='Name of Book', 
         required='true' 
         value=(book===undefined?'':book.title))
-    div.form-group
-      label(for='author') Author: 
-      select#author.form-control(
+    div.col-5
+      label.form-label.fs-3(for='author') Author 
+      select#author.form-select(
         type='select', 
         name='author',
         placeholder='Select Author',
@@ -32,18 +32,18 @@ block content
             ) #{author.name}
           else 
             option(value=author._id) #{author.name}
-    div.form-group 
-      label(for='summary') Summary: 
-      textarea#summary.form-group(
+    div.col-7
+      label.form-label.fs-3(for='summary') Summary 
+      textarea#summary.form-control(
         type='textarea',
-        placeholder='Summary',
+        placeholder='Enter A Short Summary for this Book',
         name="summary",
-        required='true', 
-        cols="30", 
-        rows="3"
+        required='true',
+        rows='5'
       ) #{book===undefined?'':book.summary} 
-    div.form-group 
-      label(for='isbn') ISBN: 
+    label.visually-hidden(for='isbn') 
+    div.input-group.input-group-lg.mt-4.w-50
+      span.input-group-text ISBN 
       input#isbn.form-control(
         type='text',
         placeholder='ISBN13',
@@ -51,21 +51,21 @@ block content
         required='true',
         value=(book===undefined?'':book.isbn)
       )
-    div.form-group
-      label Genre: 
-      div 
+    div.col-8
+      label.form-label.fs-3 Genre 
+      div.row.g-1
         for genre in genres 
-          div
-            input.checkbox-input(
+          div.col-auto
+            input.btn-check(
               type='checkbox', 
               name='genre',
               id=genre._id,
               value=genre._id,
               checked = genre.checked
             )
-            label(for=genre._id) #{genre.name}
-    div.form-group.row.justify-content-center.w-75
-      button.btn.btn-lg.btn-primary(type='submit') Submit 
+            label.btn.btn-outline-primary(for=genre._id) #{genre.name}
+    div.row.mt-3
+      button.col-1.btn.btn-primary.btn-lg(type='submit') Submit 
   
   if errors 
     ul 

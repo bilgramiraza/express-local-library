@@ -3,44 +3,43 @@ extends layout
 block content 
   h1.mt-3 #{title}
 
-  form.mt-3(action="", method="POST") 
-    div.form-group.row.text-center
-      label.col-form-label.col-auto.ml-2(for="first_name") First Name: 
-      input#first_name.form-control.col-4(type="text", 
-        placeholder='First Name', 
-        name='first_name', 
-        required='true', 
-        value=(author===undefined?'':author.first_name)) 
+  form.row.g-3.w-75(action="", method="POST") 
+    div.row.g-3
+      div.col.col-md-6
+        label.form-label.fs-3(for="first_name") First Name 
+        input#first_name.form-control.form-control-lg(type="text", 
+          placeholder='John', 
+          name='first_name', 
+          required='true', 
+          value=(author===undefined?'':author.first_name)) 
 
-    div.form-group.row.text-center
-      label.col-form-label.col-auto.ml-2(for="family_name") Family Name: 
-      input#family_name.form-control.col-4(type="text", 
-        placeholder='Family Name', 
-        name='family_name', 
-        required='true', 
-        value=(author===undefined?'':author.family_name))  
+      div.col.col-md-6
+        label.form-label.fs-3(for="family_name") Family Name 
+        input#family_name.form-control.form-control-lg(type="text", 
+          placeholder='Smith', 
+          name='family_name', 
+          required='true', 
+          value=(author===undefined?'':author.family_name))  
 
-    div.form-group.row
-      div.form-group.col-5.ml-2
-        div.form-group-lg.row.text-center
-          label.col-form-label.col-auto(for="date_of_birth") Date of Birth:
-          input#date_of_birth.form-control.col-4(type="date", 
-            placeholder='dd/mm/yyyy', 
-            name='date_of_birth', 
-            required='true', 
-            value=(author===undefined?'':author.date_of_birth))
+    div.row.g-3
+      div.col.col-md-6
+        label.form-label.fs-3(for="date_of_birth") Date of Birth
+        input#date_of_birth.form-control.form-control-lg(type="date", 
+          placeholder='dd/mm/yyyy', 
+          name='date_of_birth', 
+          required='true', 
+          value=(author===undefined?'':author.date_of_birth))
 
-      div.form-group.col-5
-        div.form-group-lg.row.text-center
-          label.col-form-label.col-auto(for="date_of_death") Date of Death:
-          input#date_of_death.form-control.col-4(type="date", 
-            placeholder='dd/mm/yyyy', 
-            name='date_of_death', 
-            required='true', 
-            value=(author===undefined?'':author.date_of_death))
+      div.col.col-md-6
+        label.form-label.fs-3(for="date_of_death") Date of Death
+        input#date_of_death.form-control.form-control-lg(type="date", 
+          placeholder='dd/mm/yyyy', 
+          name='date_of_death', 
+          required='true', 
+          value=(author===undefined?'':author.date_of_death))
 
-    div.form-group.row.justify-content-center.w-75
-      button.btn.btn-lg.btn-primary(type='submit') Submit 
+    div.row.justify-content-md-center.g-3
+      button.col-1.btn.btn-primary.btn-lg(type='submit') Submit 
   
   if errors
     ul 
