@@ -107,8 +107,32 @@ exports.author_delete_get = (req, res, next) => {
   );
 };
 
-exports.author_delete_post = (req, res) => {
-  res.send('NOT IMPLEMENTED: Author Delete POST');
+exports.author_delete_post = (req, res, next) => {
+  async.parallel(
+    {
+      authors(callback) {
+        Author.findById(req.body.authorid).exec(callback);
+      },
+      authors_books(callback) {
+        Book.find({ author: req.body.authorid }).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) return next(err);
+      if (results.author_books.length > 0) {
+        res.render('author_delete', {
+          title: 'Delete Author',
+          author: results.author,
+          author_books: results.authors_books,
+        });
+        return;
+      }
+      Author.findByIdAndDelete(req.body.authorid, (err) => {
+        if (err) return next(err);
+        res.redirect('/catalog/authors');
+      });
+    }
+  );
 };
 
 exports.author_update_get = (req, res) => {
