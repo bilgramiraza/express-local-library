@@ -85,8 +85,26 @@ exports.author_create_post = [
   },
 ];
 
-exports.author_delete_get = (req, res) => {
-  res.send('NOT IMPLEMENTED: Author Delete GET');
+exports.author_delete_get = (req, res, next) => {
+  async.parallel(
+    {
+      author(callback) {
+        Author.findById(req.params.id).exec(callback);
+      },
+      author_books(callback) {
+        Book.find({ author: req.params.id }).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) return next(err);
+      if (results.author == null) res.redirect('/catalog/authors');
+      res.render('author_delete', {
+        title: 'Delete Author',
+        author: results.author,
+        author_books: results.author_books,
+      });
+    }
+  );
 };
 
 exports.author_delete_post = (req, res) => {
