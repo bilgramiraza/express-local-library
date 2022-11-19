@@ -4,7 +4,7 @@ block content
   h1 #{title}
 
   form.row.g-3.w-75(action='', method='post')
-  
+
     div.col-10
       label.form-label.fs-3(for='book') Book 
       select#book.form-select(
@@ -50,10 +50,10 @@ block content
         placeholder='Select Status',
         required='true',
       ) 
-        option(value="Maintenance") Maintenance 
-        option(value="Available") Available 
-        option(value="Loaned") Loaned 
-        option(value="Reserved") Reserved 
+        option(value="Maintenance", selected=((bookinstance && bookinstance.status=='Maintenance')?'selected':false)) Maintenance
+        option(value="Available", selected=((bookinstance && bookinstance.status=='Available')?'selected':false)) Available
+        option(value="Loaned", selected=((bookinstance && bookinstance.status=='Loaned')?'selected':false)) Loaned
+        option(value="Reserved", selected=((bookinstance && bookinstance.status=='Reserved')?'selected':false)) Reserved
 
     div.col-10.d-flex.justify-content-center
       button.btn.btn-primary.btn-lg(type='submit') Submit 
