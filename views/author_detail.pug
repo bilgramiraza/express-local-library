@@ -14,3 +14,6 @@ block content
         dd #{book.summary}
       else 
         p No Books found by this author 
+  hr
+  p 
+    a(href=`${author.url}/delete`) Delete Author
