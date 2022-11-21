@@ -5,18 +5,19 @@ block content
   p #{author.lifespan}
 
   if author_books.length
-    p #[strong Please delete #[em All] Books of #{author.name} from the database.]
+    p #[strong Please delete #[em All] Books of #{author.name} from the System.]
 
-    div
-      h4 Books List
-      dl
+    table.table.table-striped.table-hover.text-center.w-50
+      thead.table-dark 
+        th Books List
+      tbody
         each book in author_books
-          dt
-            a(href=book.url) #{book.title}
-          dd #{book.summary}
+          tr 
+            td
+              a(href=book.url) #{book.title}
   else
-    p Confirm the Deletion of #{author.name}
-    p #[strong The Author will be #[em Permenanty Deleted] from the database]
+    h3 Confirm the Deletion of #{author.name}
+    h5 #[strong The Author will be #[em Permanently Deleted] from the database]
 
     form(action='' method='POST')
       div
@@ -27,4 +28,4 @@ block content
           value=author._id
         )
 
-        button(type='submit') Delete #{author.name}
+        button.btn.btn-danger(type='submit') Delete #{author.name}

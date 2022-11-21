@@ -3,8 +3,8 @@ extends layout
 block content 
   h1=title 
   p #[em #{author.lifespan}]
-  hr
-  div 
+  hr.w-75
+  div.w-75
     h3 Books 
 
     dl 
@@ -14,6 +14,6 @@ block content
         dd #{book.summary}
       else 
         p No Books found by this author 
-  hr
-  p 
-    a(href=`${author.url}/delete`) Delete Author
+  hr.w-75
+  p.w-75.d-flex.justify-content-center
+    a.btn.btn-danger(href=`${author.url}/delete`) Delete Author
