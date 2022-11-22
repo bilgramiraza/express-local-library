@@ -4,6 +4,7 @@ block content
   h1 #{title}: #{author.name}
   p #{author.lifespan}
 
+  hr.w-50
   if author_books.length
     p #[strong Please delete #[em All] Books of #{author.name} from the System.]
 
@@ -18,6 +19,8 @@ block content
   else
     h3 Confirm the Deletion of #{author.name}
     h5 #[strong The Author will be #[em Permanently Deleted] from the database]
+
+    hr.w-50
 
     form(action='' method='POST')
       div
