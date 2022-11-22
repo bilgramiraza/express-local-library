@@ -1,0 +1,38 @@
+extends layout 
+
+block content 
+  h1 #{title}: #{book.title}
+  div.d-flex.justify-content-between.w-50
+    p Author: #{book.author.first_name} #{book.author.family_name} 
+    p ISBN: #{book.isbn}
+  div.w-50
+    each genre in book.genre 
+      span.mx-1.badge.rounded-pill.bg-primary.fs-6 #{genre.name}
+  
+  hr.w-50
+  if book_copies.length 
+    p #[strong Please Delete #[em ALL] Copies of this book from the system before proceeding.]
+    
+    table.table.table-striped.table-hover.text-center.w-50
+      thead.table-dark 
+        th Book Copies
+      tbody
+        each copy in book_copies
+          tr 
+            td
+              a(href=copy.url) #{copy.imprint}
+  else 
+    h3 Confirm the Deletion of #{book.title}
+    h5 #[strong The Book category will be #[em Permanently Deleted] from the Database.]
+    
+    hr.w-50
+
+    form(action='', method='POST')
+      input#bookid(
+        type="hidden",
+        name='bookid',
+        required='true',
+        value=book._id,
+      )
+
+      button.btn.btn-danger(type="submit") Delete #{book.name}       
