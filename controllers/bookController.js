@@ -179,10 +179,10 @@ exports.book_delete_post = (req, res, next) => {
   async.parallel(
     {
       book(callback) {
-        Book.findById(req.params.bookid).populate('author').populate('genre').exec(callback);
+        Book.findById(req.body.bookid).populate('author').populate('genre').exec(callback);
       },
       book_copies(callback) {
-        BookInstance.find({ book: req.params.bookid }).exec(callback);
+        BookInstance.find({ book: req.body.bookid }).exec(callback);
       },
     },
     (err, results) => {
