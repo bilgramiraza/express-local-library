@@ -3,7 +3,8 @@ extends layout
 block content 
   h1 Genre: #{genre.name} 
 
-  section.mx-auto 
+  hr.w-75
+  section.w-75
     h3 Books 
     dl 
       each book in genre_books
@@ -13,3 +14,7 @@ block content
 
       else 
         p No Books of #{genre.name} Genre Found 
+
+  hr.w-75
+  p.w-75.d-flex.justify-content-center
+    a.btn.btn-danger(href=genre.url+'/delete') Delete Genre
