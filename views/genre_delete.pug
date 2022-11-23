@@ -1,0 +1,30 @@
+extends layout 
+
+block content 
+  h1 #{title}: #{genre.name}
+
+  hr.w-50
+  if genre_books.length 
+    p #[strong Please Delete #[em ALL] Books with this genre from the Database]
+
+    table.table.table-striped.table-hover.text-center.w-50
+      thead.table-dark 
+        th #{genre.name} Books
+      tbody
+        each book in genre_books
+          tr 
+            td
+              a(href=book.url) #{book.imprint}
+  else 
+    h3 Confirm the Deletion of the #{genre.name} Genre 
+    h5 #[strong The Genre Category Will be #[em Permanently Deleted] from the Database.]
+
+    form(action='', method='POST')
+      input#bookid(
+        type="hidden",
+        name='genreid',
+        required='true',
+        value=genre._id,
+      )
+
+      button.btn.btn-danger(type="submit") Delete #{genre.name}       
