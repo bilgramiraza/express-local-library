@@ -1,0 +1,24 @@
+extends layout 
+
+block content 
+  h1.mt-2 #{title}: #{book_copy.book.title}
+  div.d-flex.justify-content-between.w-75
+    p #[strong Book Identification Code: ] #{book_copy._id}
+
+    p #[strong Imprint: ] #{book_copy.imprint}
+
+  hr.w-75
+  h3 Confirm the Deletion of #{book_copy.book.title}
+  h5 #[strong The Book Copy will be #[em Permanently Deleted] from the Database.]
+    
+  hr.w-75
+
+  form(action='', method='POST')
+    input#instanceid(
+      type="hidden",
+      name='instanceid',
+      required='true',
+      value=book_copy._id,
+    )
+
+    button.btn.btn-danger(type="submit") Delete #{book_copy.book.title}       
