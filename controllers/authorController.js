@@ -150,6 +150,42 @@ exports.author_update_get = (req, res, next) => {
   });
 };
 
-exports.author_update_post = (req, res) => {
-  res.send('NOT IMPLEMENTED: Author Update POST');
-};
+exports.author_update_post = [
+  (req, res, next) => {
+    if (!Array.isArray(req.body.author)) {
+      req.body.author = typeof req.body.author === 'undefined' ? [] : [req.body.author];
+    }
+    next();
+  },
+  body('first_name', 'First Name must not be Empty').trim().isLength({ min: 1 }).escape(),
+  body('family_name', 'Family Name must not be Empty').trim().isLength({ min: 1 }).escape(),
+  body('date_of_birth', 'Invalid Date of Birth')
+    .optional({ checkFalsy: 'true' })
+    .isISO8601()
+    .toDate(),
+  body('date_of_death', 'Invalid Date of Death')
+    .optional({ checkFalsy: 'true' })
+    .isISO8601()
+    .toDate(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const author = new Author({
+      first_name: req.body.first_name,
+      family_name: req.body.family_name,
+      date_of_birth: req.body.date_of_birth,
+      date_of_death: req.body.date_of_death,
+    });
+    if (!errors.isEmpty()) {
+      res.render('author_form', {
+        title: 'Update Author',
+        author,
+        errors: errors.array(),
+      });
+      return;
+    }
+    Author.findByIdAndUpdate(req.params.id, author, {}, (err, theauthor) => {
+      if (err) return next(err);
+      res.redirect(theauthor.url);
+    });
+  },
+];
