@@ -28,7 +28,7 @@ block content
           placeholder='dd/mm/yyyy', 
           name='date_of_birth', 
           required='true', 
-          value=(author===undefined?'':author.date_of_birth))
+          value=(author===undefined?'':author.date_of_birth_ISO8601))
 
       div.col.col-md-6
         label.form-label.fs-3(for="date_of_death") Date of Death
@@ -36,7 +36,7 @@ block content
           placeholder='dd/mm/yyyy', 
           name='date_of_death', 
           required='true', 
-          value=(author===undefined?'':author.date_of_death))
+          value=(author===undefined?'':author.date_of_death_ISO8601))
 
     div.row.justify-content-md-center.g-3
       button.col-1.btn.btn-primary.btn-lg(type='submit') Submit 
