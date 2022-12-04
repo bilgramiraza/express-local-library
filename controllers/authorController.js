@@ -136,7 +136,7 @@ exports.author_delete_post = (req, res, next) => {
 };
 
 exports.author_update_get = (req, res, next) => {
-  Author.findById(req.params.id).exec((err, author) => {
+  Author.findById(req.params.id, (err, author) => {
     if (err) return next(err);
     if (author == null) {
       const err = new Error('Author Not Found');
@@ -151,12 +151,6 @@ exports.author_update_get = (req, res, next) => {
 };
 
 exports.author_update_post = [
-  (req, res, next) => {
-    if (!Array.isArray(req.body.author)) {
-      req.body.author = typeof req.body.author === 'undefined' ? [] : [req.body.author];
-    }
-    next();
-  },
   body('first_name', 'First Name must not be Empty').trim().isLength({ min: 1 }).escape(),
   body('family_name', 'Family Name must not be Empty').trim().isLength({ min: 1 }).escape(),
   body('date_of_birth', 'Invalid Date of Birth')
@@ -170,6 +164,7 @@ exports.author_update_post = [
   (req, res, next) => {
     const errors = validationResult(req);
     const author = new Author({
+      _id: req.params.id,
       first_name: req.body.first_name,
       family_name: req.body.family_name,
       date_of_birth: req.body.date_of_birth,
