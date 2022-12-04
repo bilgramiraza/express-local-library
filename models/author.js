@@ -34,4 +34,15 @@ AuthorSchema.virtual('date_of_death_formatted').get(function () {
 AuthorSchema.virtual('lifespan').get(function () {
   return `${this.date_of_birth_formatted}-${this.date_of_death_formatted}`;
 });
+
+AuthorSchema.virtual('date_of_birth_ISO8601').get(function () {
+  if (!this.date_of_birth) return '';
+  return DateTime.fromJSDate(this.date_of_birth).toISODate();
+});
+
+AuthorSchema.virtual('date_of_death_ISO8601').get(function () {
+  if (!this.date_of_death) return '';
+  return DateTime.fromJSDate(this.date_of_death).toISODate();
+});
+
 module.exports = mongoose.model('Author', AuthorSchema);
