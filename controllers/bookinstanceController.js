@@ -106,13 +106,13 @@ exports.bookinstance_update_get = (req, res, next) => {
       books(callback) {
         Book.find({}, 'title').exec(callback);
       },
-      book_details(callback) {
+      book_copy(callback) {
         BookInstance.findById(req.params.id).populate('book').exec(callback);
       },
     },
     (err, results) => {
       if (err) return next(err);
-      if (results.book_details == null) {
+      if (results.book_copy == null) {
         const err = new Error('Book Copy Not Found');
         err.status = 404;
         return next(err);
@@ -120,8 +120,8 @@ exports.bookinstance_update_get = (req, res, next) => {
       res.render('bookinstance_form', {
         title: 'Update Book Copy',
         book_list: results.books,
-        selected_book: results.book_details.book._id,
-        bookinstance: book_details,
+        selected_book: results.book_copy.book._id,
+        bookinstance: book_copy,
       });
     }
   );
