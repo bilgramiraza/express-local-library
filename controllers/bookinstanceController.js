@@ -126,6 +126,36 @@ exports.bookinstance_update_get = (req, res, next) => {
   );
 };
 
-exports.bookinstance_update_post = (req, res) => {
-  res.send('NOT IMPLEMENTED: BookInstance Update POST');
-};
+exports.bookinstance_update_post = [
+  body('book', 'Book Must Be Specified').trim().isLength({ min: 1 }).escape(),
+  body('imprint', 'Imprint Must be Specified').trim().isLength({ min: 1 }).escape(),
+  body('status').escape(),
+  body('due_back', 'Invalid Date').optional({ checkFalsy: 'true' }).isISO8601().toDate(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const book_copy = new BookInstance({
+      _id: req.params.id,
+      book: req.body.book,
+      imprint: req.body.imprint,
+      status: req.body.status,
+      due_back: req.body.due_back,
+    });
+    if (!errors.isEmpty()) {
+      Book.find({}, 'title').exec((err, books) => {
+        if (err) return next(err);
+        res.render('bookinstance_form', {
+          title: 'Update Book Copy',
+          book_list: books,
+          selected_book: book_copy.book._id,
+          errors: errors.array(),
+          bookinstance: book_copy,
+        });
+      });
+      return;
+    }
+    BookInstance.findByIdAndUpdate(req.params.id, book_copy, {}, (err, thebookcopy) => {
+      if (err) return next(err);
+      res.redirect(thebookcopy.url);
+    });
+  },
+];
