@@ -119,8 +119,19 @@ exports.genre_delete_post = (req, res, next) => {
   );
 };
 
-exports.genre_update_get = (req, res) => {
-  res.send('NOT IMPLEMENTED: Genre Update GET');
+exports.genre_update_get = (req, res, next) => {
+  Genre.findById(req.params.id, (err, genre) => {
+    if (err) return next(err);
+    if (genre == null) {
+      const err = new Error('Genre Not Found');
+      err.status = 404;
+      return next(err);
+    }
+    res.render('genre_form', {
+      title: 'Update Genre',
+      genre,
+    });
+  });
 };
 
 exports.genre_update_post = (req, res) => {
