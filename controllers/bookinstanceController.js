@@ -121,7 +121,7 @@ exports.bookinstance_update_get = (req, res, next) => {
         title: 'Update Book Copy',
         book_list: results.books,
         selected_book: results.book_copy.book._id,
-        bookinstance: book_copy,
+        bookinstance: results.book_copy,
       });
     }
   );

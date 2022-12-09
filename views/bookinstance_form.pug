@@ -39,7 +39,7 @@ block content
       input#due_back.form-control(
         type="date",
         name='due_back',
-        value=(bookinstance===undefined?'':bookinstance.due_back)
+        value=(bookinstance===undefined?'':bookinstance.due_back_ISO8601)
       )
 
     div.col-5
@@ -67,7 +67,7 @@ block content
           selected=((bookinstance && bookinstance.status=='Reserved')?'selected':false)
         ) Reserved
 
-    div.col-10.d-flex.justify-content-center
+    div.row.justify-content-md-center.g-3
       button.btn.btn-primary.btn-lg(type='submit') Submit 
 
   if errors 
