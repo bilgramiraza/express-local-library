@@ -44,6 +44,7 @@ exports.bookinstance_create_get = (req, res, next) => {
 exports.bookinstance_create_post = [
   body('book', 'Book Must Be Specified').trim().isLength({ min: 1 }).escape(),
   body('status').escape(),
+  body('imprint', 'Imprint Must be Specified').trim().isLength({ min: 1 }).escape(),
   body('due_back', 'Invalid Date').optional({ checkFalsy: 'true' }).isISO8601().toDate(),
   (req, res, next) => {
     const errors = validationResult(req);
