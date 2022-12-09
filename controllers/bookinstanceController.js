@@ -1,5 +1,6 @@
 const BookInstance = require('../models/bookinstance');
 const Book = require('../models/book');
+const async = require('async');
 const { body, validationResult } = require('express-validator');
 
 exports.bookinstance_list = (req, res, next) => {
@@ -98,8 +99,31 @@ exports.bookinstance_delete_post = (req, res, next) => {
   });
 };
 
-exports.bookinstance_update_get = (req, res) => {
-  res.send('NOT IMPLEMENTED: BookInstance Update GET');
+exports.bookinstance_update_get = (req, res, next) => {
+  async.parallel(
+    {
+      books(callback) {
+        Book.find({}, 'title').exec(callback);
+      },
+      book_details(callback) {
+        BookInstance.findById(req.params.id).populate('book').exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) return next(err);
+      if (results.book_details == null) {
+        const err = new Error('Book Copy Not Found');
+        err.status = 404;
+        return next(err);
+      }
+      res.render('bookinstance_form', {
+        title: 'Update Book Copy',
+        book_list: results.books,
+        selected_book: results.book_details.book._id,
+        bookinstance: book_details,
+      });
+    }
+  );
 };
 
 exports.bookinstance_update_post = (req, res) => {
