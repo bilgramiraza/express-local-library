@@ -13,8 +13,9 @@ const compression = require('compression');
 const helmet = require('helmet');
 const app = express();
 
-const mongoDB =
+const dev_db_url =
   'mongodb+srv://razahassan:aOucypCCTd77ACgy@cluster0.mimys9n.mongodb.net/local_library?retryWrites=true&w=majority';
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
 
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
