@@ -16,5 +16,6 @@ block content
         p No Books of #{genre.name} Genre Found 
 
   hr.w-75
-  p.w-75.d-flex.justify-content-center
+  p.w-75.d-flex.justify-content-evenly
     a.btn.btn-danger(href=genre.url+'/delete') Delete Genre
+    a.btn.btn-warning(href=`${genre.url}/update`) Update Genre 
