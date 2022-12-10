@@ -9,7 +9,7 @@ const usersRouter = require('./routes/users');
 const catalogRouter = require('./routes/catalog');
 
 const mongoose = require('mongoose');
-
+const compression = require('compression');
 const app = express();
 
 const mongoDB =
@@ -27,6 +27,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(compression());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
