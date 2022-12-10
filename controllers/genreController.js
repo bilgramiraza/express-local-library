@@ -139,7 +139,7 @@ exports.genre_update_post = [
   (req, res, next) => {
     const errors = validationResult(req);
     const genre = new Genre({
-      _id: req.params._id,
+      _id: req.params.id,
       name: req.body.name,
     });
     if (!errors.isEmpty()) {

@@ -8,6 +8,7 @@ block content
       label.form-label.fs-3(for='title') Title 
       input#title.form-control(
         type='text', 
+        name='title',
         placeholder='Name of Book', 
         required='true' 
         value=(book===undefined?'':book.title))

@@ -95,7 +95,7 @@ exports.book_create_get = (req, res, next) => {
 exports.book_create_post = [
   (req, res, next) => {
     if (!Array.isArray(req.body.genre)) {
-      rq.body.genre = typeof req.body.genre === 'undefined' ? [] : [req.body.genre];
+      req.body.genre = typeof req.body.genre === 'undefined' ? [] : [req.body.genre];
     }
     next();
   },
@@ -128,7 +128,7 @@ exports.book_create_post = [
         (err, results) => {
           if (err) return next(err);
 
-          for (const genre of results.genre) {
+          for (const genre in results.genre) {
             if (book.genre.includes(genre._id)) {
               genre.checked = 'true';
             }
