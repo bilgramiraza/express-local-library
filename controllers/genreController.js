@@ -134,6 +134,25 @@ exports.genre_update_get = (req, res, next) => {
   });
 };
 
-exports.genre_update_post = (req, res) => {
-  res.send('NOT IMPLEMENTED: Genre Update POST');
-};
+exports.genre_update_post = [
+  body('name', 'Genre Name Required').trim().isLength({ min: 1 }).escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const genre = new Genre({
+      _id: req.params._id,
+      name: req.body.name,
+    });
+    if (!errors.isEmpty()) {
+      res.render('genre_form', {
+        title: 'Update title',
+        genre,
+        errors: errors.array(),
+      });
+      return;
+    }
+    Genre.findByIdAndUpdate(req.params.id, genre, {}, (err, thegenre) => {
+      if (err) return next(err);
+      res.redirect(thegenre.url);
+    });
+  },
+];
