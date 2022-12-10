@@ -135,7 +135,7 @@ exports.genre_update_get = (req, res, next) => {
 };
 
 exports.genre_update_post = [
-  body('name', 'Genre Name Required').trim().isLength({ min: 1 }).escape(),
+  body('name', 'Valid Genre Name Required').trim().isLength({ min: 1 }).escape(),
   (req, res, next) => {
     const errors = validationResult(req);
     const genre = new Genre({
