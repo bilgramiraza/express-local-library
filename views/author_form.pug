@@ -27,7 +27,6 @@ block content
         input#date_of_birth.form-control.form-control-lg(type="date", 
           placeholder='dd/mm/yyyy', 
           name='date_of_birth', 
-          required='true', 
           value=(author===undefined?'':author.date_of_birth_ISO8601))
 
       div.col.col-md-6
@@ -35,7 +34,6 @@ block content
         input#date_of_death.form-control.form-control-lg(type="date", 
           placeholder='dd/mm/yyyy', 
           name='date_of_death', 
-          required='true', 
           value=(author===undefined?'':author.date_of_death_ISO8601))
 
     div.row.justify-content-md-center.g-3
