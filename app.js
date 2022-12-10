@@ -10,6 +10,7 @@ const catalogRouter = require('./routes/catalog');
 
 const mongoose = require('mongoose');
 const compression = require('compression');
+const helmet = require('helmet');
 const app = express();
 
 const mongoDB =
@@ -29,6 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(compression());
+app.use(helmet());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
